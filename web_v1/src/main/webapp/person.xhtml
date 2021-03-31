@@ -8,10 +8,11 @@
     </h:head>
     <h:body>
         
-        <h1 class="">Create a User</h1>
+        <h1 class="title">Create a user</h1>
+        <a href="index.xhtml" class="button">Home</a>
         
         <h:form>
-            <h:inputText value="#{personCtrl.p.lastName}"/>
+            <h:inputText value="#{personCtrl.p.lastName}" />
             <h:commandButton value="Add" action="#{personCtrl.doCreatePerson()}"/>
         </h:form>
               
