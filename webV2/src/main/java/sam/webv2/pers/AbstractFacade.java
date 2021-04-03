@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sam.web_v1.pers;
+package sam.webv2.pers;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,7 +27,7 @@ public abstract class AbstractFacade<T> {
     }
 
     public T edit(T entity) {
-       return getEntityManager().merge(entity);
+        return getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {
@@ -37,13 +37,7 @@ public abstract class AbstractFacade<T> {
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-    
-    public List<T> findAllPersons(String username) {
-        return (List<T>) getEntityManager().createQuery(
-            "select e from " + entityClass.getSimpleName()+ " e").getResultList();
-    }
-    
-    
+
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>Make</title>
+    </h:head>
+    <h:body>
+
+        <f:metadata>
+            <f:viewParam name="foo" value="#{bean.foo}" />
+            <f:viewAction action="#{personCtrl.onLoad()}" />
+        </f:metadata>
+
+        <div class="grid-container">
+            <div class="title">
+                <h1>Home</h1>
+                <h:outputText value="#{personCtrl.username}" class="usernamePrint"/>
+                <h:form>
+                    <h:commandButton value="#{personCtrl.logOutput}" action="#{personCtrl.loginPerson()}" class="loginBtn"/>
+                </h:form>
+            </div>
+            <div class="links">
+                <ul>
+                    <li>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="Edit Users" outcome="edit.xhtml" class="link"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainArea">
+                <p class="introMsg">Enter all the correct details to create an appointment and notify all other users involved</p>
+                <h:form>
+
+                    <h:inputText p:placeholder="Appointment Title" value="#{makeCtrl.m.appointmentTitle}" class="inputBox"/>
+                    <h:inputText p:placeholder="Date" value="#{makeCtrl.m.dateSet}" class="inputBox"/>
+                    <h:inputText p:placeholder="Time" value="#{makeCtrl.m.timeSet}" class="inputBox"/>
+                    <h:inputText p:placeholder="Users Involved" value="#{makeCtrl.m.persons}" class="inputBox"/>
+
+
+
+
+                    <h:selectManyMenu value="#{personCtrl.appointmentId}">
+                        <f:selectItems value="#{personCtrl.findAllPersons()}" var="item" itemLabel="#{item.userName}"/>
+                    </h:selectManyMenu>
+
+
+                    <h:commandButton value="Create" action="#{makeCtrl.createAppointment}" class="button"/>
+                </h:form>
+
+            </div>  
+        </div>
+    </h:body>
+</html>
+

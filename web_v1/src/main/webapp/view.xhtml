@@ -5,43 +5,51 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <link rel="stylesheet" href="main.css"/>
     <h:head>
-        <title>Home</title>
+        <title>View</title>
     </h:head>
     <h:body>
-
+        
         <f:metadata>
             <f:viewParam name="foo" value="#{bean.foo}" />
             <f:viewAction action="#{personCtrl.onLoad()}" />
         </f:metadata>
-
-        <div class="grid-container">
-
+        <div class="grid-containerView">
             <div class="title">
                 <h1>Home</h1>
                 <h:outputText value="#{personCtrl.username}" class="usernamePrint"/>
-                <h:form>
-                    <h:commandButton value="#{personCtrl.logOutput}" action="#{personCtrl.loginPerson()}" 
-                                     class="loginBtn"/>
-                </h:form>
-
+                <h:button value="#{personCtrl.logOutput}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
             </div>
-
             <div class="links">
                 <ul>
                     <li>
                         <h:button value="Make an Appointment" outcome="make.xhtml" class="link"/>
                     </li>
                     <li>
-                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
                     </li>
                     <li>
                         <h:button value="Edit Users" outcome="edit.xhtml" class="link"/>
                     </li>
                 </ul>
             </div>
-            <div class="mainArea">Main</div>  
-        </div>
+            <div class="mainArea">
+                <h:dataTable value="#{viewCtrl.findAllPersons()}" var="p" class="userTable">
+                    <h:column>
+                        <h:commandButton class="indUser" value="#{p.userName}" action="#{viewCtrl.getInfo(p)}"/>
+                    </h:column>
+                </h:dataTable>
+            </div>  
+            <div class="secondMainArea">
+                <h:dataTable value="#{viewCtrl.findAllAppointments()}" var="a" class="userTable">
+                    <h:column>
+                        <h:column>
+                            <h:outputText value="#{a.appointmentTitle}"/>
+                        </h:column>
+                    </h:column>
+                </h:dataTable>
 
+            </div>
+        </div>
     </h:body>
 </html>
 

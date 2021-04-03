@@ -5,27 +5,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <link rel="stylesheet" href="main.css"/>
     <h:head>
-        <title>Home</title>
+        <title>Edit</title>
     </h:head>
     <h:body>
-
+        
         <f:metadata>
             <f:viewParam name="foo" value="#{bean.foo}" />
             <f:viewAction action="#{personCtrl.onLoad()}" />
         </f:metadata>
-
         <div class="grid-container">
-
             <div class="title">
                 <h1>Home</h1>
                 <h:outputText value="#{personCtrl.username}" class="usernamePrint"/>
-                <h:form>
-                    <h:commandButton value="#{personCtrl.logOutput}" action="#{personCtrl.loginPerson()}" 
-                                     class="loginBtn"/>
-                </h:form>
-
+                <h:button value="#{personCtrl.logOutput}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
             </div>
-
             <div class="links">
                 <ul>
                     <li>
@@ -35,13 +28,12 @@
                         <h:button value="View Users" outcome="view.xhtml" class="link"/>
                     </li>
                     <li>
-                        <h:button value="Edit Users" outcome="edit.xhtml" class="link"/>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
                     </li>
                 </ul>
             </div>
             <div class="mainArea">Main</div>  
         </div>
-
     </h:body>
 </html>
 

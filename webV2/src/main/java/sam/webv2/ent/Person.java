@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sam.web_v1.ent;
+package sam.webv2.ent;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -21,58 +24,21 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
     private Long id;
-    private String userName;
-    private String password;    
-    private String firstName;
     private String lastName;
-    private String phoneNumber;
-    private String emailAddress;
+    @ManyToMany
+    private List<Address> residences = new ArrayList<>();
 
-    
+    public List<Address> getResidences() {
+        return residences;
+    }
+
+    public void setResidences(List<Address> residences) {
+        this.residences = residences;
+    }
+
     public String getLastName() {
         return lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
     }
 
     public void setLastName(String lastName) {
@@ -109,7 +75,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return userName;
+        return "sam.webv2.ent.Person[ id=" + id + " ]";
     }
     
 }
