@@ -24,6 +24,47 @@ public class ViewCtrl {
 
     private Person p = new Person();
     private Make m = new Make();
+    private Person personClicked;
+    private String searchBarText = "";
+    private List<Person> allUsersPrinted;
+
+    @EJB
+    private PersonServices ps;
+    @EJB
+    private MakeServices ms;
+
+    public void onLoad() {
+        findAllPersons();
+        ps.login(ps.getUser());
+    }
+
+    public List<Person> findAllPersons() {
+        allUsersPrinted = ps.fetchAllPersons();
+        return allUsersPrinted;
+    }
+
+    public List<Person> findSearchedPersons() {
+        allUsersPrinted = ps.findSearchedUsers(searchBarText);
+        return allUsersPrinted;
+    }
+
+    public Person findClicked(Person p) {
+        System.out.print(p);
+        personClicked = ps.findPerson(p.getId());
+        return ps.findPerson(p.getId());
+    }
+
+    public List<Make> findAllAppointments() {
+        return ms.fetchAllAppointments();
+    }
+
+    public String getSearchBarText() {
+        return searchBarText;
+    }
+
+    public void setSearchBarText(String searchBarText) {
+        this.searchBarText = searchBarText;
+    }
 
     public Make getM() {
         return m;
@@ -41,22 +82,20 @@ public class ViewCtrl {
         this.p = p;
     }
 
-    public String getInfo(Person p) {
-        System.out.print("The User Clicked : " + p);
-        return p.getUserName();
-    }
-    
-    
-    @EJB
-    private PersonServices ps;
-
-    public List<Person> findAllPersons() {
-        return ps.fetchAllPersons();
+    public Person getPersonClicked() {
+        return personClicked;
     }
 
-    @EJB
-    private MakeServices ms;
-    public List<Make> findAllAppointments(){
-        return ms.fetchAllAppointments();
+    public void setPersonClicked(Person personClicked) {
+        this.personClicked = personClicked;
     }
+
+    public List<Person> getAllUsersPrinted() {
+        return allUsersPrinted;
+    }
+
+    public void setAllUsersPrinted(List<Person> allUsersPrinted) {
+        this.allUsersPrinted = allUsersPrinted;
+    }
+
 }

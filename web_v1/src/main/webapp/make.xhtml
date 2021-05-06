@@ -12,16 +12,14 @@
 
         <f:metadata>
             <f:viewParam name="foo" value="#{bean.foo}" />
-            <f:viewAction action="#{personCtrl.onLoad()}" />
+            <f:viewAction action="#{makeCtrl.onLoad()}" />
         </f:metadata>
-
+        
         <div class="grid-container">
             <div class="title">
                 <h1>Home</h1>
-                <h:outputText value="#{personCtrl.username}" class="usernamePrint"/>
-                <h:form>
-                    <h:commandButton value="#{personCtrl.logOutput}" action="#{personCtrl.loginPerson()}" class="loginBtn"/>
-                </h:form>
+                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
+                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.logoutButton()}" class="loginBtn"/>
             </div>
             <div class="links">
                 <ul>
@@ -32,7 +30,7 @@
                         <h:button value="View Users" outcome="view.xhtml" class="link"/>
                     </li>
                     <li>
-                        <h:button value="Edit Users" outcome="edit.xhtml" class="link"/>
+                        <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
                     </li>
                 </ul>
             </div>
@@ -41,16 +39,22 @@
                 <h:form>
 
                     <h:inputText p:placeholder="Appointment Title" value="#{makeCtrl.m.appointmentTitle}" class="inputBox"/>
-                    <h:inputText p:placeholder="Date" value="#{makeCtrl.m.dateSet}" class="inputBox"/>
-                    <h:inputText p:placeholder="Time" value="#{makeCtrl.m.timeSet}" class="inputBox"/>
-                    <h:inputText p:placeholder="Users Involved" value="#{makeCtrl.m.persons}" class="inputBox"/>
+                    
+                    <h:inputText p:placeholder="Date" value="#{makeCtrl.m.dateSet}" class="inputBox">
+                        <f:convertDateTime type="date" dateStyle="full" pattern="dd/mm/yyyy" timeZone="BST"/>    
+                    </h:inputText>
+                    <h:inputText p:placeholder="Time" value="#{makeCtrl.m.timeSet}" class="inputBox">
+                        <f:convertDateTime type="time" timeStyle="full" pattern="HH:mm" timeZone="BST"/>  
+                    </h:inputText>
+
+
+                    <h:selectManyCheckbox value="#{makeCtrl.personIdList}" class="selectUsers">
+                        <f:selectItems value="#{personCtrl.findAllPersons()}" var="item" itemLabel="#{item.userName}" class="checkmark"
+                                       itemValue="#{item.id}"/>
+                    </h:selectManyCheckbox>
 
 
 
-
-                    <h:selectManyMenu value="#{personCtrl.appointmentId}">
-                        <f:selectItems value="#{personCtrl.findAllPersons()}" var="item" itemLabel="#{item.userName}"/>
-                    </h:selectManyMenu>
 
 
                     <h:commandButton value="Create" action="#{makeCtrl.createAppointment}" class="button"/>

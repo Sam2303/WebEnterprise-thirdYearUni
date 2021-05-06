@@ -6,13 +6,15 @@
 package sam.web_v1.ent;
 
 import java.io.Serializable;
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -27,23 +29,46 @@ public class Make implements Serializable {
     
     private Long id;
     private String AppointmentTitle;
-    private String dateSet;
-    private String timeSet;
-    private String persons;
+    @Temporal(javax.persistence.TemporalType.DATE) //timestamp
+    private Date dateSet;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date timeSet; // do not use date
+    
+    @ManyToMany
+    private List<Person> personList = new ArrayList<>();
 
-    public String getDateSet() {
+    //@ManyToMany
+    //private List<Person> hostList = new ArrayList<>();
+
+//    public List<Person> getHostList() {
+//        return hostList;
+//    }
+//
+//    public void setHostList(List<Person> hostList) {
+//        this.hostList = hostList;
+//    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
+    }
+    
+    public Date getDateSet() {
         return dateSet;
     }
 
-    public void setDateSet(String dateSet) {
+    public void setDateSet(Date dateSet) {
         this.dateSet = dateSet;
     }
 
-    public String getTimeSet() {
+    public Date getTimeSet() {
         return timeSet;
     }
 
-    public void setTimeSet(String timeSet) {
+    public void setTimeSet(Date timeSet) {
         this.timeSet = timeSet;
     }
 
@@ -54,17 +79,6 @@ public class Make implements Serializable {
     public void setAppointmentTitle(String AppointmentTitle) {
         this.AppointmentTitle = AppointmentTitle;
     }
-
-
-    public String getPersons() {
-        return persons;
-    }
-
-    public void setPersons(String persons) {
-        this.persons = persons;
-    }
-    
-    
 
     public Long getId() {
         return id;
@@ -96,7 +110,7 @@ public class Make implements Serializable {
 
     @Override
     public String toString() {
-        return String.valueOf(id);
+        return AppointmentTitle;
     }
     
 }

@@ -1,6 +1,6 @@
 * {
-  box-sizing: border-box;
-  font-family: arial;
+    box-sizing: border-box;
+    font-family: arial;
 }
 
 
@@ -79,7 +79,7 @@ h1{
 
 a{
     text-decoration: none;
-    
+
 }
 
 .title { 
@@ -93,42 +93,46 @@ a{
 
 }
 .links { 
+    position: static;
     grid-area: menu;
     background: #303030;
 }
 .mainArea { 
+    margin-top: 3%;
+    position: static;
     grid-area: main; 
     height:1000px;
     /*background:black;*/ 
 }
 .secondMainArea{
+    margin-top: 3%;
+    position: static;
     grid-area: apointments;
     height: 1000px;
-    background: red;
 }
 
 .grid-container {
-  margin: -2% -1% 0 -1%;
-  display: grid;
-  grid-template-areas:
-  'header header header header header header'
-  'menu main main main main main';
+    margin: -2% -1% 0 -1%;
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main main main main';
 }
 
 .grid-container > div {
-  text-align: center;
- 
+    text-align: center;
+
 }
 .grid-containerView {
-  margin: -2% -1% 0 -1%;
-  display: grid;
-  grid-template-areas:
-  'header header header header header header'
-  'menu main main apointments apointments apointments';
+    margin: -2% -1% 0 -1%;
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main apointments apointments apointments';
 }
 
 .grid-containerView > div {
-  text-align: center;
+    text-align: center;
 }
 
 .links ul{
@@ -156,7 +160,50 @@ a{
     margin: 3% 0 3% 0;
     width: 60%; 
     margin: 2% 20% 2% 20%;
-    
+
+}
+
+
+
+/*Edit page*/
+.editUserTable{
+    display: inline;
+    background: #f3f3f3;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.editList{
+    list-style:none;
+}
+.editList li{
+    display: inline;
+}
+.userInfoOut{
+    background: #f3f3f3;
+    margin: 1% 0 1% 0;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+
+/*View Page*/
+.userInfoTable{
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: 2% 10% 2% 10%;
+    text-align: center;
+}
+
+.userInfoTableRow{
+    width: 90%;
+    margin: 2% 5% 2% 5%;
+}
+.appInfoTableRow{
+    width: 90%;
+    text-align: center;
 }
 
 .userTable{
@@ -164,11 +211,47 @@ a{
 }
 
 .indUser{
-    width: 600%;
+    width: 250%;
     padding: 15px;
     background: #f3f3f3;
-    margin:50% 100% 50% 100%;
+    margin:10% 100% 10% 100%;
     border: none;
     border-radius: 15px;
     font-size: 150%;
+}
+
+.userAppointments{
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: 2% 10% 2% 10%;
+    text-align: center;
+}
+
+
+/*Make page*/
+.selectUsers{
+    width: 50%;
+    margin: 1% 25%;
+   
+}
+
+.selectUsers input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.selectUsers label{
+    background: #f3f3f3;
+    padding: 5px;
+    border-radius: 5px;
+}
+.selectUsers input:checked ~ label{
+    background: #0070FF;
+    color: #f3f3f3;
+    transition: 0.6s ease all;
 }

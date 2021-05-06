@@ -6,10 +6,13 @@
 package sam.web_v1.ent;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -21,16 +24,38 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
+
     private Long id;
     private String userName;
-    private String password;    
+    private String password;
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
-
     
+    @ManyToMany(mappedBy = "personList")
+    private List<Make> appointments = new ArrayList<>();
+    
+   // @ManyToMany(mappedBy = "hostList")
+   // private List<Make> hostAppointments = new ArrayList<>();
+//
+//    public List<Make> getHostAppointments() {
+//        return hostAppointments;
+//    }
+//
+//    public void setHostAppointments(List<Make> hostAppointments) {
+//        this.hostAppointments = hostAppointments;
+//    }
+    
+   
+    public List<Make> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Make> appointments) {
+        this.appointments = appointments;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -111,5 +136,5 @@ public class Person implements Serializable {
     public String toString() {
         return userName;
     }
-    
+
 }

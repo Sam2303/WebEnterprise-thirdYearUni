@@ -12,12 +12,12 @@
         <h1 class="title">Register</h1>
         
         <h:form>
-            <h:inputText value="#{personCtrl.p.userName}" class="inputBox" p:placeholder="Username"/>
-            <h:inputSecret value="#{personCtrl.p.password}" class="inputBox" p:placeholder="Password"/>
-            <h:inputText value="#{personCtrl.p.firstName}" class="inputBox" p:placeholder="First Name"/>
-            <h:inputText value="#{personCtrl.p.lastName}" class="inputBox" p:placeholder="Last Name"/>
-            <h:inputText value="#{personCtrl.p.phoneNumber}" class="inputBox" p:placeholder="Phone Number"/>
-            <h:inputText value="#{personCtrl.p.emailAddress}" class="inputBox" p:placeholder="Email Address"/>
+            <h:inputText p:placeholder="#{personCtrl.userNameText}" value="#{personCtrl.p.userName}" class="inputBox" required="true"/>
+            <h:inputSecret value="#{personCtrl.p.password}" class="inputBox" p:placeholder="Password" required="true"/>
+            <h:inputText value="#{personCtrl.p.firstName}" class="inputBox" p:placeholder="First Name" required="true"/>
+            <h:inputText value="#{personCtrl.p.lastName}" class="inputBox" p:placeholder="Last Name" required="true"/>
+            <h:inputText value="#{personCtrl.p.phoneNumber}" class="inputBox" p:placeholder="Phone Number" required="true"/>
+            <h:inputText value="#{personCtrl.p.emailAddress}" class="inputBox" p:placeholder="Email Address" required="true"/>
             
             <h:commandButton value="Register" action="#{personCtrl.doCreatePerson()}" class="button"/>
         </h:form>

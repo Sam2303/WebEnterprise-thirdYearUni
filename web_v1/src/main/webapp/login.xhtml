@@ -17,7 +17,7 @@
             <h:inputText p:placeholder="#{personCtrl.errorUserName}" value="#{personCtrl.p.userName}" class="inputBox"/>
             <h:inputSecret p:placeholder="#{personCtrl.errorPassword}" value="#{personCtrl.p.password}" class="inputBox"/>
             
-            <h:commandButton value="Login" action="#{personCtrl.checkUser()}" class="button"/>
+            <h:commandButton value="Login" action="#{personCtrl.loginPerson()}" class="button"/>
             <h:commandButton value="Register" action="register.xhtml" class="button"/>
 
         </h:form>

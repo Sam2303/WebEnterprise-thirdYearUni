@@ -5,9 +5,11 @@
  */
 package sam.web_v1.pers;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sam.web_v1.ent.Person;
 
 /**
@@ -28,5 +30,19 @@ public class PersonFacade extends AbstractFacade<Person> {
     public PersonFacade() {
         super(Person.class);
     }
-    
+
+    public Person fetchLoginUser(Person p) {
+
+        try {
+            Query q = em.createQuery("SELECT p FROM Person p WHERE p.userName = :username AND p.password = :password");
+            q.setParameter("username", p.getUserName());
+            q.setParameter("password", p.getPassword());
+            Person pl = (Person) q.getSingleResult();
+//            System.out.print(pl);
+            return pl;
+        } catch (Exception ex) {
+            System.out.print("ERROR BAAAD: "+ex);
+        }
+        return p;
+    }
 }

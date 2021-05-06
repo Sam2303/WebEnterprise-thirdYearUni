@@ -5,9 +5,13 @@
  */
 package sam.web_v1.bus;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import sam.web_v1.ent.Make;
 import sam.web_v1.ent.Person;
 import sam.web_v1.pers.PersonFacade;
 
@@ -17,9 +21,93 @@ import sam.web_v1.pers.PersonFacade;
  */
 @Stateless
 public class PersonServices {
+
     private Person user;
     public String username = "";
     private String logOutput = "Login";
+    private List<Make> appointments = new ArrayList<>();
+    private List<Person> allPersonsSearched = new ArrayList<>();
+
+    @EJB
+    private PersonFacade pf;
+
+    public Person updateUserDetails(Person p) {
+        p = pf.edit(p);
+        return p;
+    }
+
+    public List<Person> findSearchedUsers(String searchBarText) {
+        allPersonsSearched.clear();
+        allPersonsSearched = pf.findAll();
+        if (!searchBarText.equals("")) {
+            List<Person> searchedUsers = new ArrayList<>();
+            allPersonsSearched.stream().filter(p -> (p.getUserName().contains(searchBarText))).forEachOrdered(p -> {
+                searchedUsers.add(p);
+            });
+            allPersonsSearched = searchedUsers;
+        }
+        return allPersonsSearched;
+    }
+
+    public String createNewPerson(Person p) {
+        List<Person> allUsers = pf.findAll();
+
+        for (Person pers : allUsers) {
+            if (!pers.getUserName().equals(p.getUserName())) {
+                pf.create(p);
+                return "Account created";
+            } else {
+                return "Username already taken";
+            }
+        }
+        return null;
+    }
+
+    public Person login(Person p) {
+        try {
+            Person person = pf.fetchLoginUser(p);
+            user = person;
+            username = person.getUserName();
+            logOutput = "Logout";
+            return person;
+        } catch (Exception ex) {
+            System.out.print(ex);
+        }
+        return null;
+    }
+
+    public Person getLoggedInUser() {
+        return getUser();
+    }
+
+    public List<Person> fetchAllPersons() {
+        List<Person> allPersons = pf.findAll();
+        return allPersons;
+    }
+
+    public List<Person> getAllPersonsSearched() {
+        return allPersonsSearched;
+    }
+
+    public void setAllPersonsSearched(List<Person> allPersonsSearched) {
+        this.allPersonsSearched = allPersonsSearched;
+    }
+
+    public Person getPersonInfo(Person p) {
+        return p;
+    }
+
+    public Person findPerson(Long id) {
+        return pf.find(id);
+    }
+
+    public Person getUser() {
+        return user;
+    }
+
+    public void setUser(Person user) {
+        this.user = user;
+    }
 
     public String getUsername() {
         return username;
@@ -36,60 +124,13 @@ public class PersonServices {
     public void setLogOutput(String logOutput) {
         this.logOutput = logOutput;
     }
-    
-    @EJB
-    private PersonFacade pf;
 
-    
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    
-    public Person createNewPerson(Person p){
-        pf.create(p);
-        return p;
-    }
-    
-    public Person getPersonInfo(Person p){
-        return p;
-    }
-    
-    
-    public List<Person> fetchAllPersons(){
-        return pf.findAll();
-    }
-    
-//    public Boolean loginUser(Person p){
-//        List<Person> list = (pf.findAll());
-//       return list.stream().anyMatch(pers -> (pers.getUserName().equals(p.getUserName()) && pers.getPassword().equals(p.getPassword()) ));
-//    }
-    
-    public Person loginUser(Person p){
-        List<Person> list = (pf.findAll());
-        for(Person person: list){
-            if(person.getUserName().equals(p.getUserName()) 
-                    && 
-                        person.getPassword().equals(p.getPassword())){
-                user = person;
-                username = person.getUserName();
-                return person;
-            }
-        }
-        return null;
-        
+    public List<Make> getAppointments() {
+        return appointments;
     }
 
-    public Person getUser() {
-        return user;
+    public void setAppointments(List<Make> appointments) {
+        this.appointments = appointments;
     }
 
-    public void setUser(Person user) {
-        this.user = user;
-    }
-
-
-
-   
-    
-   
 }

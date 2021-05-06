@@ -15,9 +15,9 @@
         </f:metadata>
         <div class="grid-container">
             <div class="title">
-                <h1>Edit User</h1>
+                <h1>Home</h1>
                 <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
-                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.logoutButton()}" class="loginBtn"/>
+                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
             </div>
             <div class="links">
                 <ul>
@@ -32,23 +32,14 @@
                     </li>
                 </ul>
             </div>
-                            
             <div class="mainArea">
                 <h:form>
-                    
-                    <h:inputText value="#{personCtrl.p.userName}"  class="inputBox" required="true"/>
 
-                    <h:inputSecret value="#{personCtrl.p.password}" class="inputBox" required="true"/>
+                    <h:inputText p:placeholder="#{personCtrl.errorUserName}" value="#{personCtrl.p.userName}" class="inputBox"/>
+                    <h:inputSecret p:placeholder="#{personCtrl.errorPassword}" value="#{personCtrl.p.password}" class="inputBox"/>
 
-                    <h:inputText value="#{personCtrl.p.firstName}" class="inputBox" required="true"/>
+                    <h:commandButton value="Login" action="#{personCtrl.checkUserForEdit()}" class="button"/>
 
-                    <h:inputText value="#{personCtrl.p.lastName}" class="inputBox" required="true"/>
-
-                    <h:inputText value="#{personCtrl.p.emailAddress}" class="inputBox" required="true"/>
-
-                    <h:inputText value="#{personCtrl.p.phoneNumber}" class="inputBox" required="true"/>
-
-                    <h:commandButton value="Submit" action="#{personCtrl.editUser()}" class="button"/>
                 </h:form>
             </div>  
         </div>

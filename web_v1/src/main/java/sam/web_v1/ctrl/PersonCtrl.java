@@ -1,31 +1,149 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sam.web_v1.ctrl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import sam.web_v1.bus.MakeServices;
 import sam.web_v1.bus.PersonServices;
+import sam.web_v1.ent.Make;
 import sam.web_v1.ent.Person;
 
-/**
- *
- * @author sjp20
- */
 @Named(value = "personCtrl")
 @RequestScoped
-public class PersonCtrl {    
-    private List<Long> appointmentId = new ArrayList<>();
+public class PersonCtrl {
+
     @EJB
     private PersonServices ps;
+    @EJB
+    private MakeServices ms;
     Person person;
     String username = "";
+    String firstName = "";
+    List<Make> appoinments = new ArrayList<>();
+
     String logOutput = "Login";
+    private Person p = new Person();
+    private String errorUserName = "Username";
+    private String errorPassword = "Password";
+
+    String userNameText = "Username";
+
+    public String doCreatePerson() {
+        userNameText = ps.createNewPerson(p);
+        if (userNameText.equals("Account created")) {
+            return "index.xhtml";
+        } else {
+            p.setUserName("");
+            p.setFirstName("");
+            p.setPassword("");
+            p.setLastName("");
+            p.setEmailAddress("");
+            p.setPhoneNumber("");
+            return "login.xhtml";
+        }
+    }
+
+    public String loginPerson() {
+        Person loggedIn = ps.login(p);
+        if (loggedIn != null) {
+            person = loggedIn;
+            ms.setHost(person);
+            username = person.getUserName();
+            logOutput = ps.getLogOutput();
+            return "index.xhtml";
+        } else {
+            errorUserName = "Username or Password is incorrect!";
+            errorPassword = "Username or Password is incorrect!";
+            p.setUserName("");
+            p.setPassword("");
+        }
+        return null;
+    }
+
+        public String logoutButton(){
+        if(ps.getLogOutput().equals( "Logout")){
+            
+            logOutput = "Login";
+            username = "";
+            ps.setLogOutput("Login");
+            ps.setUser(null);
+            ps.setUsername("");
+            
+            return "index.xhtml";
+        }
+        return "login.xhtml";
+    }
+    
+//    public String checkUserForEdit() {
+//        if (ps.loginUser(p) != null && ps.loginUser(p).getUserName().equals(p.getUserName())
+//                && ps.loginUser(p).getPassword().equals(p.getPassword())) {
+//
+//            System.out.print(ps.loginUser(p));
+//
+//            ps.setUser(ps.loginUser(p));
+//            ps.setLogOutput("Logout");
+//            ps.setUsername(p.getUserName());
+//            username = ps.getUsername();
+//            logOutput = ps.getLogOutput();
+//
+//            p.setFirstName(ps.getUser().getFirstName());
+//            p.setLastName(ps.getUser().getLastName());
+//            p.setPassword(ps.getUser().getPassword());
+//            p.setEmailAddress(ps.getUser().getEmailAddress());
+//            p.setPhoneNumber(ps.getUser().getPhoneNumber());
+//
+//            return "edit.xhtml";
+//
+//        } else {
+//            errorUserName = "Username or Password is incorrect!";
+//            errorPassword = "Username or Password is incorrect!";
+//            p.setUserName("");
+//            p.setPassword("");
+//            return null;
+//        }
+//    }
+    public String loginBtn() {
+        return "login.xhtml";
+    }
+
+    public String editUser() {
+        ps.setUser(ps.updateUserDetails(p));
+
+        return "index.xhtml";
+
+    }
+
+    public String loginUserName() {
+        return ps.getUsername();
+    }
+
+    public String logOutputFunction() {
+        return ps.getLogOutput();
+    }
+    
+    public Person getLogin() {
+        Person user = ps.getUser();
+        if (user != null) {
+            return user;
+        } else {
+            return ps.getUser();
+        }
+    }
+    
+    public void onLoad(){
+        System.out.print("ONLOAD PERSONCTRL: " + ms.getHost());
+    }
+   
+    public String getUserNameText() {
+        return userNameText;
+    }
+
+    public void setUserNameText(String userNameText) {
+        this.userNameText = userNameText;
+    }
 
     public String getLogOutput() {
         return logOutput;
@@ -50,18 +168,6 @@ public class PersonCtrl {
     public void setPerson(Person person) {
         this.person = person;
     }
-    
-    public List<Long> getAppointmentId() {
-        return appointmentId;
-    }
-
-    public void setAppointmentId(List<Long> appointmentId) {
-        this.appointmentId = appointmentId;
-    }
-
-    private Person p = new Person();
-    private String errorUserName = "Username";
-    private String errorPassword = "Password";
 
     public Person getP() {
         return p;
@@ -98,41 +204,20 @@ public class PersonCtrl {
         return ps.fetchAllPersons();
     }
 
-    public String doCreatePerson() {
-        ps.createNewPerson(p);
-        return "";
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String checkUser() {        
-        if(ps.loginUser(p).getUserName().equals(p.getUserName())
-                &&
-                   ps.loginUser(p).getPassword().equals(p.getPassword())){
-            
-            System.out.print(ps.loginUser(p));
-            
-            ps.setUser(ps.loginUser(p));
-            ps.setLogOutput("Logout");
-            ps.setUsername(p.getUserName());
-            username = ps.getUsername();
-            logOutput = ps.getLogOutput();
-            return "index.xhtml";
-            
-        } else {
-            errorUserName = "Username or Password is incorrect!";
-            errorPassword = "Username or Password is incorrect!";
-            p.setUserName("");
-            p.setPassword("");
-            return null;
-        }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    
-    public String loginPerson(){
-        return "login.xhtml";
+
+    public List<Make> getAppoinments() {
+        return appoinments;
     }
-    
-    public void onLoad(){
-        System.out.print("PAGE LOADED");
-        username = ps.getUsername();
-        logOutput = ps.getLogOutput();
+
+    public void setAppoinments(List<Make> appoinments) {
+        this.appoinments = appoinments;
     }
+
 }
