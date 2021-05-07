@@ -1,0 +1,12 @@
+sam\web_v1\ctrl\ViewCtrl.class
+sam\web_v1\ent\Person.class
+sam\web_v1\pers\PersonFacade.class
+sam\web_v1\pers\AbstractFacade.class
+sam\web_v1\ent\Make.class
+sam\web_v1\ctrl\PersonCtrl.class
+sam\web_v1\JAXRSConfiguration.class
+sam\web_v1\resources\JavaEE8Resource.class
+sam\web_v1\pers\MakeFacade.class
+sam\web_v1\bus\MakeServices.class
+sam\web_v1\bus\PersonServices.class
+sam\web_v1\ctrl\MakeCtrl.class

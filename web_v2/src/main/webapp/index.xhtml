@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>Home</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="foo" value="#{bean.foo}" />
+            <f:viewAction action="#{personCtrl.onLoad()}" />
+        </f:metadata>
+
+        <div class="grid-containerView">
+
+            <div class="title">
+                <h1>Home</h1>
+                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
+                <h:form>
+                    <h:commandButton value="#{personCtrl.logOutputFunction()}" action="#{personCtrl.logoutButton()}" 
+                                     class="loginBtn"/>
+                </h:form>
+
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li>
+                        <h:button value="Make an Appointment" outcome="make.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainArea">
+
+                <h:form  class="userInfoTable">
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Username</f:facet>
+                            <h:outputText value="#{p.userName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">First Name</f:facet>
+                            <h:outputText value="#{p.firstName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Last Name</f:facet>
+                            <h:outputText value="#{p.lastName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Email Address</f:facet>
+                            <h:outputText value="#{p.emailAddress}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Phone Number</f:facet>
+                            <h:outputText value="#{p.phoneNumber}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+            </div>
+            <div class="secondMainArea">
+                <h:form class="userAppointments">
+                    <h:dataTable value="#{personCtrl.getLogin()}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <h:dataTable value="#{p.appointments}" var="a" class="appInfoTableRow">
+                                <h:column>
+                                    <f:facet name = "header">Appointment Title</f:facet>
+                                    <h:outputText value="#{a.appointmentTitle}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header">Date</f:facet> 
+                                    <h:outputText value="#{a.dateSet}">  
+                                        <f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="BST"/>  
+                                    </h:outputText> 
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header">Time</f:facet>
+                                    <h:outputText value="#{a.timeSet}">
+                                        <f:convertDateTime timeStyle="full" pattern="HH:mm" timeZone="BST"/>  
+                                    </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

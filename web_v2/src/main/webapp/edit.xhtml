@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>Edit</title>
+    </h:head>
+    <h:body>
+
+        <f:metadata>
+            <f:viewParam name="foo" value="#{bean.foo}" />
+        </f:metadata>
+        <div class="grid-container">
+            <div class="title">
+                <h1>Edit User</h1>
+                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
+                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.logoutButton()}" class="loginBtn"/>
+            </div>
+            <div class="links">
+                <ul>
+                    <li>
+                        <h:button value="Make an Appointment" outcome="make.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
+                    </li>
+                </ul>
+            </div>
+                            
+            <div class="mainArea">
+                <h:form>
+                    
+                    <h:inputText value="#{personCtrl.p.userName}"  class="inputBox" required="true"/>
+
+                    <h:inputSecret value="#{personCtrl.p.password}" class="inputBox" required="true"/>
+
+                    <h:inputText value="#{personCtrl.p.firstName}" class="inputBox" required="true"/>
+
+                    <h:inputText value="#{personCtrl.p.lastName}" class="inputBox" required="true"/>
+
+                    <h:inputText value="#{personCtrl.p.emailAddress}" class="inputBox" required="true"/>
+
+                    <h:inputText value="#{personCtrl.p.phoneNumber}" class="inputBox" required="true"/>
+
+                    <h:commandButton value="Submit" action="#{personCtrl.editUser()}" class="button"/>
+                </h:form>
+            </div>  
+        </div>
+    </h:body>
+</html>
+
