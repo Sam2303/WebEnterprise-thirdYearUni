@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>View</title>
+    </h:head>
+    <h:body>
+
+        <f:metadata>
+            <f:viewParam name="foo" value="#{bean.foo}" />
+            <f:viewAction action="#{viewCtrl.onLoad()}" />
+        </f:metadata>
+
+        <div class="grid-containerView">
+            <div class="title">
+                <h1>View Users</h1>
+                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
+                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
+            </div>
+            <div class="links">
+                <ul>
+                    <li>
+                        <h:form>
+                            <h:commandButton value="Make an Appointment" action="#{personCtrl.checkLoggedIn('make')}" class="link"/>
+                        </h:form>
+                    </li>
+                    <li>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainArea">
+                <h:dataTable value="#{viewCtrl.findSearchedPersons()}" var="p" class="userTable">
+                    <h:column>
+                        <h:form>
+                            <h:commandButton class="indUser" value="#{p.userName}" action="#{viewCtrl.findClicked(p)}">
+                            </h:commandButton>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+            <div class="secondMainArea">
+                <h:form  class="userInfoTable">
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Username</f:facet>
+                            <h:outputText value="#{viewCtrl.personClicked.userName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">First Name</f:facet>
+                            <h:outputText value="#{p.firstName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Last Name</f:facet>
+                            <h:outputText value="#{p.lastName}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Address</f:facet>
+                            <h:outputText value="#{p.address}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Email Address</f:facet>
+                            <h:outputText value="#{p.emailAddress}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <f:facet name = "header">Phone Number</f:facet>
+                            <h:outputText value="#{p.phoneNumber}" class="indInfo"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <h:form class="userAppointments">
+                    <h:dataTable value="#{viewCtrl.personClicked}" var="p" class="userInfoTableRow">
+                        <h:column>
+                            <h:dataTable value="#{p.appointments}" var="a" class="appInfoTableRow">
+                                <h:column>
+                                    <f:facet name = "header">Appointment Title</f:facet>
+                                    <h:outputText value="#{a.appointmentTitle}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header">Start</f:facet> 
+                                    <h:outputText value="#{a.timeStart}" > 	
+                                        <f:convertDateTime type="localDateTime" dateStyle="short" pattern="dd/MM/yyyy HH:mm"/> 
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                        <f:facet name = "header">End</f:facet>
+                                        <h:outputText value="#{a.timeEnd}" > 	
+                                            <f:convertDateTime type="localDateTime" dateStyle="short" pattern="dd/MM/yyyy HH:mm"/> 
+                                        </h:outputText>
+                                    </h:column>
+                            </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>        
+        </div>
+    </h:body>
+</html>
+

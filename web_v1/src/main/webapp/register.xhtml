@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>Register</title>
+    </h:head>
+    <h:body>
+        <h1 class="title">Register</h1>
+        <h:button value="Login" outcome="login.xhtml" class="loginBtn"/>
+
+        <h:form>
+            <h:inputText p:placeholder="#{personCtrl.userNameText}" value="#{personCtrl.p.userName}" class="inputBox" id="username" 
+                         validatorMessage="Username must be between 6 and 15 characters">
+                <f:validateLength minimum="6" maximum="15"/>
+            </h:inputText>
+            <h:message for="username" class="errorMsg"/>
+            <h:outputText value="#{personCtrl.usernameErrMsg}" class="errorMsg"/>
+
+            <h:inputSecret value="#{personCtrl.p.password}" class="inputBox" p:placeholder="Password" id="password"
+                           validatorMessage="Password needs to be between 6 and 15 characters" >
+                <f:validateLength minimum="6" maximum="15"/>
+            </h:inputSecret>
+            <h:message for="password" class="errorMsg" />
+
+
+            <h:inputText value="#{personCtrl.p.firstName}" class="inputBox" p:placeholder="First Name" id="firstName"
+                         validatorMessage="First Name needs to be between 1 and 15 characters">
+                <f:validateLength minimum="1" maximum="15"/>
+            </h:inputText>
+            <h:message for="firstName"  class="errorMsg" />
+
+            <h:inputText value="#{personCtrl.p.lastName}" class="inputBox" p:placeholder="Last Name" id="lastName"
+                         validatorMessage="Last Name needs to be between 1 and 15 characters">
+                <f:validateLength minimum="1" maximum="15"/>
+            </h:inputText>
+            <h:message for="lastName"  class="errorMsg" />
+
+            <h:inputText p:placeholder="House Name and Street" value="#{personCtrl.addressFL}" class="inputBox" id="address"/>
+            <h:message for="address" class="errorMsg"/>
+            <h:outputText value="#{personCtrl.addressFlErrorMsg}" class="errorMsg"/>                       
+
+            <h:inputText p:placeholder="Post Code" value="#{personCtrl.postCode}" class="inputBox" id="postCode"/>
+            <h:message for="postCode" class="errorMsg"/>
+            <h:outputText value="#{personCtrl.postCodeErrorMsg}" class="errorMsg"/>
+
+            <h:inputText p:placeholder="Phone Number" value="#{personCtrl.p.phoneNumber}" class="inputBox" id="number"/>
+            <h:message for="number" class="errorMsg"/>
+            <h:outputText value="#{personCtrl.numberErrorMsg}" class="errorMsg"/>
+            
+            <h:inputText p:placeholder="Email Address" value="#{personCtrl.p.emailAddress}" class="inputBox" id="email"/>
+            <h:message for="email" class="errorMsg"/>
+            <h:outputText value="#{personCtrl.emailErrorMsg}" class="errorMsg"/>
+            
+            
+
+            <h:commandButton value="Register" action="#{personCtrl.doCreatePerson()}" class="button"/>
+
+        </h:form>
+    </h:body>
+</html>
+

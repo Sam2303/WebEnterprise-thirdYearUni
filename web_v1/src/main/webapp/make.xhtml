@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <link rel="stylesheet" href="main.css"/>
+    <h:head>
+        <title>Make</title>
+    </h:head>
+    <h:body>
+        <div class="grid-container">
+            <div class="title">
+                <h1>Home</h1>
+                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
+                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
+            </div>
+            <div class="links">
+                <ul>
+                    <li>
+                        <h:button value="Home" outcome="index.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainArea">
+                <p class="introMsg">Enter all the correct details to create an appointment and notify all other users involved</p>
+                <h:form>
+
+                    <h:inputText p:placeholder="Appointment Title" value="#{makeCtrl.m.appointmentTitle}" class="inputBox"/>
+
+                    <f:facet name = "header">Start</f:facet>
+                    <pf:calendar id="StartDate" value="#{makeCtrl.m.timeStart}" mode="inline"
+                                 pattern="dd.MM.yyyy HH:mm" class="calendar"/>
+                    
+                    
+                    <h:selectOneMenu value="#{makeCtrl.selectDur}" class="selectTime">
+                        <f:selectItems value="#{makeCtrl.getDurations()}" class="indvTime" var="item" itemValue="#{item}"/>
+                    </h:selectOneMenu>
+                    
+                    
+                    <h:selectManyCheckbox value="#{makeCtrl.personIdList}" class="selectUsers">
+                        <f:selectItems value="#{personCtrl.findAllPersons()}" var="item" itemLabel="#{item.userName}" class="checkmark"
+                                       itemValue="#{item.id}"/>
+                    </h:selectManyCheckbox>
+
+                    
+
+                    <h:commandButton value="Create" action="#{makeCtrl.createAppointment}" class="button"/>
+                </h:form>
+
+            </div>  
+        </div>
+    </h:body>
+</html>
+
