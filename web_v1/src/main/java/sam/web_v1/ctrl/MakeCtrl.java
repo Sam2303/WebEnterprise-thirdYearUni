@@ -38,34 +38,17 @@ public class MakeCtrl {
 
     private List<String> duration = new ArrayList<>();
     private String selectDur;
-
+    
+    
     public String createAppointment() {
-        System.out.print(selectDur);
         System.out.print("CREATE CLICKED");
         System.out.print(personIdList);
-        ms.createNewAppointment(m, personId, personIdList, selectDur);
-        ps.loginUser(ps.getUser());
+        ms.createNewAppointment(m, personId, personIdList);
         ps.getUser().getAppointments().add(m);
-        return "";
+        ps.loginUser(ps.getUser());
+        return "index.xhtml";
     }
 
-    public List<String> getDurations() {
-        if (duration.isEmpty()) {
-            duration.add("00:30");
-            duration.add("01:00");
-            duration.add("01:30");
-            duration.add("02:00");
-            duration.add("02:30");
-            duration.add("03:00");
-            duration.add("03:30");
-            duration.add("04:00");
-            duration.add("04:30");
-            duration.add("05:00");
-            duration.add("05:30");
-            duration.add("06:00");
-        }
-        return duration;
-    }
 
     public String getSelectDur() {
         return selectDur;

@@ -42,7 +42,18 @@ public class PersonServices {
     public Person updateUserDetails(Person p) {
         p.setId(user.getId());
         p = pf.edit(p);
+        p.setAppointments(user.getAppointments());
         return p;
+    }
+
+    public Person updateMakeList(Person p) {
+        if (user == null) {
+            return user;
+        } else {
+            System.out.print("THIS IS THE UPDATEMAKELIST USER: " + user);
+            user = pf.find(p.getId());
+            return user;
+        }
     }
 
     public List<Person> findSearchedUsers(String searchBarText) {

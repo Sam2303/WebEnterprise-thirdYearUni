@@ -6,6 +6,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import sam.web_v1.bus.MakeServices;
 import sam.web_v1.bus.PersonServices;
 import sam.web_v1.ent.Person;
 
@@ -32,6 +33,11 @@ public class PersonCtrl {
     private String postCodeErrorMsg = "";
     private String numberErrorMsg = "";
     private String emailErrorMsg = "";
+
+    public void onLoad() {
+        System.out.print("PAGE LOADED");
+        person = ps.updateMakeList(person);
+    }
 
     public String doCreatePerson() {
         System.out.print("REGISTER CLICKED");
@@ -80,8 +86,8 @@ public class PersonCtrl {
     }
 
     public String checkUserForEdit() {
-        if (ps.loginUser(p) != null && ps.loginUser(p).getUserName().equals(p.getUserName())
-                && ps.loginUser(p).getPassword().equals(p.getPassword())) {
+        Person personRet = ps.loginUser(p);
+        if (personRet != null) {
 
             System.out.print(ps.loginUser(p));
 
@@ -118,6 +124,9 @@ public class PersonCtrl {
             }
             if (page.equals("view")) {
                 return "view.xhtml";
+            }
+            if (page.equals("range")) {
+                return "range.xhtml";
             }
         }
         return "login.xhtml";
@@ -156,15 +165,13 @@ public class PersonCtrl {
         return ps.getLogOutput();
     }
 
+    @EJB
+    MakeServices ms;
+
     public Person getLogin() {
-        if (ps.getUser() != null) {
-            Person user = ps.getUser();
-            return user;
-        } else {
-            return ps.getUser();
-        }
+        return ps.getUser();
     }
- 
+
     public String getUserNameText() {
         return userNameText;
     }

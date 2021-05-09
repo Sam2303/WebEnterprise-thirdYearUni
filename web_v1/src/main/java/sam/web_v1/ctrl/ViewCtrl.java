@@ -5,6 +5,8 @@
  */
 package sam.web_v1.ctrl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -27,6 +29,14 @@ public class ViewCtrl {
     private Person personClicked;
     private String searchBarText = "";
     private List<Person> allUsersPrinted;
+    private Person loggedIn;
+
+    private List<Make> appointments = new ArrayList<>();
+    private String errMsg;
+   
+
+    private LocalDateTime timeStart;
+    private LocalDateTime timeEnd;
 
     @EJB
     private PersonServices ps;
@@ -37,6 +47,24 @@ public class ViewCtrl {
         findAllPersons();
         ps.loginUser(ps.getUser());
     }
+
+    public void rangeLoad() {
+        appointments = ms.fetchAllAppointments();
+        System.out.print(appointments);
+    }
+    
+    
+    public String filterAppointments(){
+        List<Make> al = ms.filterAppointments(timeStart, timeEnd);
+        if(al.isEmpty()){
+            errMsg = "There is no appointments in the date range selected";
+        }else{
+            System.out.print(al);
+            appointments = al;
+        }
+        return "range.xhtml";
+    }
+    
 
     public List<Person> findAllPersons() {
         allUsersPrinted = ps.fetchAllPersons();
@@ -96,6 +124,38 @@ public class ViewCtrl {
 
     public void setAllUsersPrinted(List<Person> allUsersPrinted) {
         this.allUsersPrinted = allUsersPrinted;
+    }
+
+    public List<Make> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Make> appointments) {
+        this.appointments = appointments;
+    }
+
+    public LocalDateTime getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(LocalDateTime timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public LocalDateTime getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(LocalDateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getErrMsg() {
+        return errMsg;
+    }
+
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
     }
 
 }

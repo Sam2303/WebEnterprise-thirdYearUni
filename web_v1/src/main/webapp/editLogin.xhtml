@@ -13,36 +13,15 @@
         <f:metadata>
             <f:viewParam name="foo" value="#{bean.foo}" />
         </f:metadata>
-        <div class="grid-container">
-            <div class="title">
-                <h1>Home</h1>
-                <h:outputText value="#{personCtrl.loginUserName()}" class="usernamePrint"/>
-                <h:button value="#{personCtrl.logOutputFunction()}" outcome="#{personCtrl.loginPerson()}" class="loginBtn"/>
-            </div>
-            <div class="links">
-                <ul>
-                    <li>
-                        <h:button value="Make an Appointment" outcome="make.xhtml" class="link"/>
-                    </li>
-                    <li>
-                        <h:button value="View Users" outcome="view.xhtml" class="link"/>
-                    </li>
-                    <li>
-                        <h:button value="Home" outcome="index.xhtml" class="link"/>
-                    </li>
-                </ul>
-            </div>
-            <div class="mainArea">
-                <h:form>
+        <h1 class="title">Login for Edit Page</h1>
+        <h:button value="Home" outcome="index.xhtml" class="loginBtn"/>
 
-                    <h:inputText p:placeholder="#{personCtrl.errorUserName}" value="#{personCtrl.p.userName}" class="inputBox"/>
-                    <h:inputSecret p:placeholder="#{personCtrl.errorPassword}" value="#{personCtrl.p.password}" class="inputBox"/>
+        <h:form>
+            <h:inputText p:placeholder="#{personCtrl.errorUserName}" value="#{personCtrl.p.userName}" class="inputBox"/>
+            <h:inputSecret p:placeholder="#{personCtrl.errorPassword}" value="#{personCtrl.p.password}" class="inputBox"/>
 
-                    <h:commandButton value="Login" action="#{personCtrl.checkUserForEdit()}" class="button"/>
-
-                </h:form>
-            </div>  
-        </div>
+            <h:commandButton value="Login" action="#{personCtrl.checkUserForEdit()}" class="button"/>
+        </h:form>
     </h:body>
 </html>
 

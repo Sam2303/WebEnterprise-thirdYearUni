@@ -8,6 +8,11 @@
         <title>Home</title>
     </h:head>
     <h:body>
+        
+        <f:metadata>
+            <f:viewParam name="foo" value="#{bean.foo}" />
+            <f:viewAction action="#{personCtrl.onLoad()}" />
+        </f:metadata>
 
         <div class="grid-containerView">
 
@@ -30,11 +35,16 @@
                     </li>
                     <li>
                         <h:form>
-                            <h:commandButton value="View Appointments" action="#{personCtrl.checkLoggedIn('view')}" class="link"/>
+                            <h:commandButton value="View Users" action="#{personCtrl.checkLoggedIn('view')}" class="link"/>
                         </h:form>
                     </li>
                     <li>
                         <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
+                    </li>
+                    <li>
+                        <h:form>
+                            <h:commandButton value="View Appointments" action="#{personCtrl.checkLoggedIn('range')}" class="link"/>
+                        </h:form>
                     </li>
                 </ul>
             </div>

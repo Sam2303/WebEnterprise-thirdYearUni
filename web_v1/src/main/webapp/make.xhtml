@@ -27,6 +27,11 @@
                     <li>
                         <h:button value="Edit Users" outcome="editLogin.xhtml" class="link"/>
                     </li>
+                    <li>
+                        <h:form>
+                            <h:commandButton value="View Appointments" action="#{personCtrl.checkLoggedIn('range')}" class="link"/>
+                        </h:form>
+                    </li>
                 </ul>
             </div>
             <div class="mainArea">
@@ -34,23 +39,23 @@
                 <h:form>
 
                     <h:inputText p:placeholder="Appointment Title" value="#{makeCtrl.m.appointmentTitle}" class="inputBox"/>
+                  
+                    
+                    <div class="rangePage">
+                        <pf:calendar id="StartDate" value="#{makeCtrl.m.timeStart}" mode="inline"
+                                     pattern="dd.MM.yyyy HH:mm" class="calendar" required="true" readonlyInput="true"/>
+                        
+                        
+                        <pf:calendar id="EndDate" value="#{makeCtrl.m.timeEnd}" mode="inline"
+                                     pattern="dd.MM.yyyy HH:mm" class="calendar" required="true" readonlyInput="true"/>
+                    </div>          
 
-                    <f:facet name = "header">Start</f:facet>
-                    <pf:calendar id="StartDate" value="#{makeCtrl.m.timeStart}" mode="inline"
-                                 pattern="dd.MM.yyyy HH:mm" class="calendar"/>
-                    
-                    
-                    <h:selectOneMenu value="#{makeCtrl.selectDur}" class="selectTime">
-                        <f:selectItems value="#{makeCtrl.getDurations()}" class="indvTime" var="item" itemValue="#{item}"/>
-                    </h:selectOneMenu>
-                    
-                    
                     <h:selectManyCheckbox value="#{makeCtrl.personIdList}" class="selectUsers">
                         <f:selectItems value="#{personCtrl.findAllPersons()}" var="item" itemLabel="#{item.userName}" class="checkmark"
                                        itemValue="#{item.id}"/>
                     </h:selectManyCheckbox>
 
-                    
+
 
                     <h:commandButton value="Create" action="#{makeCtrl.createAppointment}" class="button"/>
                 </h:form>
